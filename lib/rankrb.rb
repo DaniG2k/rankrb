@@ -1,5 +1,5 @@
 require "rankrb/version"
-require "rankrb/query_cleaner"
+require "rankrb/query_parser"
 require "rankrb/document"
 require "rankrb/collection"
 

@@ -1,4 +1,4 @@
 module Rankrb
-  class QueryCleaner
+  class QueryParser
 	end
 end
