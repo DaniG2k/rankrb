@@ -6,10 +6,6 @@ module Rankrb
       @query = params[:query]
     end
 
-    def each(&block)
-      self.each(&block)
-    end
-
     def containing_term(term)
       total = 0
       @docs.each do |doc|
@@ -56,6 +52,6 @@ module Rankrb
       end
       @docs
     end
-    
+
   end
 end
