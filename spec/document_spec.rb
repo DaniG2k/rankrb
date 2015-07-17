@@ -27,4 +27,9 @@ describe Rankrb::Document do
   	@doc.body = "Japan is also known as the Land of the Rising Sun."
     expect(@doc.include?("Japan")).to be true
   end
+
+  it 'returns the term frequency in a document' do
+    @doc.body = 'In this document here, there are some terms that repeat here.'
+    expect(@doc.term_freq("here")).to eq(2)
+  end
 end

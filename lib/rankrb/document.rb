@@ -14,5 +14,15 @@ module Rankrb
     def include?(term)
       @body.include?(term)
     end
+
+    def term_freq(term)
+      # TODO
+      # Will need something better here to clean out the document.
+      # Eg. QueryCleaner class.
+      @body.gsub(/[^\s\p{Alnum}\p{Han}\p{Katakana}\p{Hiragana}\p{Hangul}]/,'')
+      .downcase
+      .split
+      .count(term) 
+    end
   end
 end
