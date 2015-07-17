@@ -53,5 +53,8 @@ module Rankrb
       @docs
     end
 
+    def sort_by_rank
+      @docs.sort! {|a, b| a.rank <=> b.rank}
+    end
   end
 end
