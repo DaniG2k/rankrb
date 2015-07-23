@@ -7,19 +7,11 @@ module Rankrb
     end
 
     def containing_term(term)
-      total = 0
-      @docs.each do |doc|
-        total += 1 if doc.include?(term) 
-      end
-      total
+      @docs.count {|doc| doc.include?(term)}
     end
     
     def avg_dl
-      doc_lengths = 0
-      @docs.each do |doc|
-        doc_lengths += doc.length
-      end
-      doc_lengths / total_docs
+      @docs.map(&:length).inject(:+) / total_docs
     end
 
     def total_docs
@@ -54,7 +46,7 @@ module Rankrb
     end
 
     def sort_by_rank
-      @docs.sort! {|a, b| a.rank <=> b.rank}
+      @docs.sort {|a, b| a.rank <=> b.rank}
     end
   end
 end
