@@ -43,9 +43,7 @@ module Rankrb
         end
         doc.rank = score
       end
-      
-      @docs.sort {|a, b| a.rank <=> b.rank }
-
+      @docs.sort {|a, b| a.rank <=> b.rank}
     end
   end
 end

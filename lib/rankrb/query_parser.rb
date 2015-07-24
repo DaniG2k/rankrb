@@ -1,4 +1,4 @@
 module Rankrb
   class QueryParser
-	end
+  end
 end
