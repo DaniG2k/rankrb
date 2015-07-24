@@ -46,28 +46,11 @@ describe Rankrb::Collection do
     doc3 = Rankrb::Document.new(:body => "The Japanese government has decided to scrap its controversial plans for the stadium for the 2020 Tokyo Olympics and Paralympics. Prime Minister Shinzo Abe said his government would \"start over from zero\" and find a new design. The original design, by British architect Zaha Hadid, had come under criticism as estimated building costs rose to $2bn (£1.3bn) Mr Abe says the new stadium will still be completed in time for the games. However, the delay means that the stadium will no longer be ready in time for the 2019 Rugby World Cup, which Japan is also hosting. \"I have been listening to the voices of the people and the athletes for about a month now, thinking about the possibility of a review,\" Mr Abe said.")
     coll = Rankrb::Collection.new(:docs => [doc1, doc2, doc3], :query => 'Shinzo Abe said')
     
-    coll.bm25
-
-    expect('%.2f' % doc1.rank).to eq("2.02")
-    expect('%.2f' % doc2.rank).to eq("3.00")
-    expect('%.2f' % doc3.rank).to eq("2.30")
-  end
-
-  it 'sorts a collection by the score of its docs' do
-    doc1 = Rankrb::Document.new(:body => "To reduce the estimated construction cost of ¥252 billion and ease growing criticism, Prime Minister Shinzo Abe said Friday that the new National Stadium to be built for the 2020 Tokyo Olympics will be redesigned from scratch. This means Japan will renege on its promise to use the venue for the 2019 Rugby World Cup because the new stadium won’t be built in time, Abe said.")
-    doc2 = Rankrb::Document.new(:body => "It's never too late to learn, at least for this Chinese great grandmother. Zhao Shunjin, from Hangzhou in eastern China, has just been taught how to write her own name at the ripe age of 100. Her son, Luo Rongsheng, 70, told CNN that Zhao announced at a family dinner in June that she would like to learn how to read and write. She has now mastered about 100 Chinese characters after taking an intensive 10-day literacy program held by her neighborhood committee, according to Luo.")
-    doc3 = Rankrb::Document.new(:body => "The Japanese government has decided to scrap its controversial plans for the stadium for the 2020 Tokyo Olympics and Paralympics. Prime Minister Shinzo Abe said his government would \"start over from zero\" and find a new design. The original design, by British architect Zaha Hadid, had come under criticism as estimated building costs rose to $2bn (£1.3bn) Mr Abe says the new stadium will still be completed in time for the games. However, the delay means that the stadium will no longer be ready in time for the 2019 Rugby World Cup, which Japan is also hosting. \"I have been listening to the voices of the people and the athletes for about a month now, thinking about the possibility of a review,\" Mr Abe said.")
-    coll = Rankrb::Collection.new(:docs => [doc1, doc2, doc3], :query => 'Shinzo Abe said')
+    sorted = coll.bm25
+    first, second, third = sorted.shift, sorted.shift, sorted.shift
     
-    coll.bm25
-    sorted = coll.sort_by_rank
-    first = sorted.shift
-    second = sorted.shift
-    third = sorted.shift
-
-    expect('%.2f' % first.rank).to eq('2.02')
-    expect('%.2f' % second.rank).to eq('2.30')
-    expect('%.2f' % third.rank).to eq('3.00')
-
+    expect('%.2f' % first.rank).to eq("2.02")
+    expect('%.2f' % second.rank).to eq("2.30")
+    expect('%.2f' % third.rank).to eq("3.00")
   end
 end

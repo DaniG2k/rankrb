@@ -1,5 +1,6 @@
 module Rankrb
   class Collection
+    attr_accessor :query
 
     def initialize(params={:docs=>[], :query=>nil})
       @docs = params[:docs]
@@ -42,11 +43,9 @@ module Rankrb
         end
         doc.rank = score
       end
-      @docs
-    end
+      
+      @docs.sort {|a, b| a.rank <=> b.rank }
 
-    def sort_by_rank
-      @docs.sort {|a, b| a.rank <=> b.rank}
     end
   end
 end
