@@ -6,8 +6,30 @@ module Rankrb
       super
     end
 
-    def build str
-      str.chars.inject(self) { |hash, char| hash[char] ||= {} }
+    def build(str)
+      str.chars.inject(self) do |hash, char|
+        hash[char] ||= {}
+      end
+      self
+    end
+
+    def search(str, obj=self)
+      if str.length <= 1
+        obj[str]
+      else
+        str_array = str.chars
+        char = str_array.shift
+        next_trie = obj[char]
+
+        if next_trie
+          # Recurse inside the returned trie.
+          search(str_array.join, next_trie)
+        else
+          # String wasn't found in trie.
+          nil
+        end
+      end
     end
   end
+
 end
