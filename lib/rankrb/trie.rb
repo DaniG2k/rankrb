@@ -18,8 +18,7 @@ module Rankrb
         obj[str]
       else
         str_array = str.chars
-        char = str_array.shift
-        next_trie = obj[char]
+        next_trie = obj[str_array.shift]
 
         if next_trie
           # Recurse inside the returned trie.
