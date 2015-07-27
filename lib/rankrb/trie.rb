@@ -29,6 +29,6 @@ module Rankrb
         end
       end
     end
+    
   end
-
 end

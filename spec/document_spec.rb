@@ -32,4 +32,10 @@ describe Rankrb::Document do
     @doc.body = 'In this document here, there are some terms that repeat here.'
     expect(@doc.term_freq("here")).to eq(2)
   end
+
+  it 'returns the uniqe terms in a document' do
+    @doc.body = 'In this document here, there are some terms that repeat here.'
+    res = %w(in this document here there are some terms that repeat)
+    expect(@doc.tokens).to eq(res)
+  end
 end
