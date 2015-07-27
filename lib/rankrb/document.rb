@@ -3,8 +3,10 @@ module Rankrb
     attr_accessor :body, :rank
 
     def initialize(params={:body=>'', :rank=>nil})
+      @doc_id = get_doc_id
       @body = params[:body]
       @rank = params[:rank]
+      @idx = Rankrb.configuration.index
     end
 
     def length
@@ -23,14 +25,20 @@ module Rankrb
       to_token.uniq
     end
 
-    def get_docid
-      idx = Rankrb.configuration.index
-      File.open(idx) { |f| f.readline }
-    end
-
     private
     def to_token
       Rankrb::Tokenizer.new(@body).tokenize
+    end
+
+    def get_doc_id
+      config_path = File.expand_path("../#{@idx}", __FILE__)
+      unless @idx.nil?
+        File.open(config_path) {|f| f.readline}
+      end
+    end
+
+    def set_doc_id
+      # Write the @doc_id + 1 to config
     end
   end
 end

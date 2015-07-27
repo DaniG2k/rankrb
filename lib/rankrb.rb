@@ -14,7 +14,6 @@ require 'rankrb/railtie' if defined? Rails
 require 'rankrb/models/active_record_extension'
 
 module Rankrb
-  
   def self.❨╯°□°❩╯︵┻━┻
     'Calm down yo!'
   end
@@ -31,7 +30,7 @@ module Rankrb
     @configuration ||= Configuration.new
   end
 
-  def self.configure 
+  def self.configure
     # Can configure as such:
     # Obj.configure do |conf|
     #   conf.some_key = 'abc123'
