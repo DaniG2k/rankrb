@@ -16,11 +16,16 @@ module Rankrb
     end
 
     def term_freq(term)
-      Rankrb::Tokenizer.new(@body).tokenize.count(term)
+      to_token.count(term)
     end
 
     def tokens
-      Rankrb::Tokenizer.new(@body).tokenize.uniq
+      to_token.uniq
+    end
+
+    private
+    def to_token
+      Rankrb::Tokenizer.new(@body).tokenize
     end
   end
 end
