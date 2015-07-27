@@ -1,5 +1,5 @@
 module Rankrb
-	class Tokenizer
+  class Tokenizer
     def initialize(doc)
       @doc = doc
     end
@@ -9,5 +9,5 @@ module Rankrb
       regex = /[^\s\p{Alnum}\p{Han}\p{Katakana}\p{Hiragana}\p{Hangul}]/
       @doc.gsub(regex,'').downcase.split
     end
-	end
+  end
 end
