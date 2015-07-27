@@ -5,7 +5,14 @@ describe Rankrb do
     expect(Rankrb::VERSION).not_to be nil
   end
 
-  #it 'does something useful' do
-  #  expect(false).to eq(true)
-  #end
+  it '❨╯°□°❩╯︵┻━┻ tells angry developers to calm down' do
+  	expect(Rankrb.❨╯°□°❩╯︵┻━┻).to eq('Calm down yo!')
+  end
+
+  it 'allows configuration via a block' do
+  	Rankrb.configure do |conf|
+  		conf.index = 'indexfile.idx'
+  	end
+  	expect(Rankrb.configuration.index).to eq('indexfile.idx')
+  end
 end

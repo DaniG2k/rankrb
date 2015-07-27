@@ -23,6 +23,11 @@ module Rankrb
       to_token.uniq
     end
 
+    def get_docid
+      idx = Rankrb.configuration.index
+      File.open(idx) { |f| f.readline }
+    end
+
     private
     def to_token
       Rankrb::Tokenizer.new(@body).tokenize
