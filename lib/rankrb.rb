@@ -27,7 +27,7 @@ module Rankrb
   end
 
   def self.configuration
-    @configuration ||= Configuration.new
+    @config ||= Configuration.new
   end
 
   def self.configure

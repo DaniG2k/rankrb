@@ -6,7 +6,6 @@ module Rankrb
       @doc_id = get_doc_id
       @body = params[:body]
       @rank = params[:rank]
-      @idx = Rankrb.configuration.index
     end
 
     def length
@@ -31,7 +30,7 @@ module Rankrb
     end
 
     def get_doc_id
-      config_path = File.expand_path("../#{@idx}", __FILE__)
+      config_path = File.expand_path("../#{@config.index}", __FILE__)
       unless @idx.nil?
         File.open(config_path) {|f| f.readline}
       end
