@@ -3,6 +3,7 @@ require 'rankrb/query_parser'
 require 'rankrb/document'
 require 'rankrb/collection'
 require 'rankrb/tokenizer'
+require 'rankrb/inverted_index'
 require 'rankrb/trie'
 
 require 'active_support'

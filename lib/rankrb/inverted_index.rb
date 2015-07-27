@@ -1,7 +1,8 @@
 module Rankrb
   class InvertedIndex
-    def initialize(docid)
-      @docid = docid
+    attr_accessor :docid
+    def initialize(params={})
+      @docid = params[:docid]
     end
 
     def build(tokens)
