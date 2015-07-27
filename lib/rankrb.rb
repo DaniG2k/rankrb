@@ -2,6 +2,7 @@ require 'rankrb/version'
 require 'rankrb/query_parser'
 require 'rankrb/document'
 require 'rankrb/collection'
+require 'rankrb/tokenizer'
 require 'rankrb/trie'
 
 require 'active_support'

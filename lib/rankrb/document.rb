@@ -16,21 +16,11 @@ module Rankrb
     end
 
     def term_freq(term)
-      # TODO
-      # Will need something better here to clean out the document.
-      # Eg. QueryCleaner class.
-      tokenize.count term
+      Rankrb::Tokenizer.new(@body).tokenize.count(term)
     end
 
     def tokens
-      tokenize.uniq
-    end
-
-    private
-    def tokenize
-      @body.gsub(/[^\s\p{Alnum}\p{Han}\p{Katakana}\p{Hiragana}\p{Hangul}]/,'')
-      .downcase
-      .split
+      Rankrb::Tokenizer.new(@body).tokenize.uniq
     end
   end
 end
