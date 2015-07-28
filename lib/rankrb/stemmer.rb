@@ -4,11 +4,9 @@ module Rankrb
   # See also http://www.tartarus.org/~martin/PorterStemmer
   #
   class Stemmer
+    attr_accessor :str
     # Make the stem_porter the default stem method, just in case we
-    # feel like having multiple stemmers available later.
-    
-    alias_method :stem, :stem_porter
-    
+    # feel like having multiple stemmers available later.    
     def initialize(str)
       @str = str
     end
