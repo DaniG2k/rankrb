@@ -3,7 +3,7 @@ module Rankrb
     attr_accessor :body, :rank
 
     def initialize(params={:body=>'', :rank=>nil})
-      @doc_id = get_doc_id
+      @doc_id = doc_id
       @body = params[:body]
       @rank = params[:rank]
     end
@@ -29,14 +29,14 @@ module Rankrb
       Rankrb::Tokenizer.new(@body).tokenize
     end
 
-    def get_doc_id
+    def get_next_doc_id
       config_path = File.expand_path("../#{@config.index}", __FILE__)
       unless @idx.nil?
         File.open(config_path) {|f| f.readline}
       end
     end
 
-    def set_doc_id
+    def set_next_doc_id
       # Write the @doc_id + 1 to config
     end
   end
