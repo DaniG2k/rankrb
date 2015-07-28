@@ -11,6 +11,10 @@ module Rankrb
       @str = str
     end
 
+    def to_s
+      @str.to_s
+    end
+
     STEP_2_LIST = {
       'ational'=>'ate', 'tional'=>'tion', 'enci'=>'ence', 'anci'=>'ance',
       'izer'=>'ize', 'bli'=>'ble',
