@@ -4,9 +4,11 @@ require 'rankrb/query_parser'
 require 'rankrb/document'
 require 'rankrb/collection'
 require 'rankrb/tokenizer'
-require 'rankrb/stemmer'
 require 'rankrb/inverted_index'
-require 'rankrb/trie'
+#require 'rankrb/stemmer'
+require 'lingua/stemmer'
+#require 'rankrb/trie'
+
 
 require 'active_support'
 require 'active_record'
