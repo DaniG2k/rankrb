@@ -10,7 +10,7 @@ describe Rankrb::Tokenizer do
   it 'tokenizes a Japanese string' do
     str = "これは、文書体です。"
     tokenizer = Rankrb::Tokenizer.new(str)
-    expect(tokenizer.tokenize).to eq(["これは文書体です"])
+    expect(tokenizer.tokenize).to eq(["これは","文書体です"])
   end
 
   it 'tokenizes a Korean string' do
