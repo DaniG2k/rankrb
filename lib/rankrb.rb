@@ -5,6 +5,7 @@ require 'rankrb/document'
 require 'rankrb/collection'
 require 'rankrb/tokenizer'
 require 'rankrb/inverted_index'
+require 'pry'
 
 require 'lingua/stemmer'
 #require 'rankrb/stemmer'
