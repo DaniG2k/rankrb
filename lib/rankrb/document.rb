@@ -1,6 +1,6 @@
 module Rankrb
   class Document
-    attr_accessor :body, :rank
+    attr_accessor :doc_id, :body, :rank
 
     def initialize(params={:body=>'', :rank=>nil})
       @doc_id = doc_id
