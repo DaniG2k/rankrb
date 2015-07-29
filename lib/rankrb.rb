@@ -17,12 +17,12 @@ require 'rankrb/railtie' if defined? Rails
 require 'rankrb/models/active_record_extension'
 
 module Rankrb
-  def self.❨╯°□°❩╯︵┻━┻
-    'Calm down yo!'
-  end
-
   class Configuration
     attr_accessor :index
+  end
+  
+  def self.❨╯°□°❩╯︵┻━┻
+    'Calm down yo!'
   end
 
   class << self
