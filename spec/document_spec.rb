@@ -10,6 +10,11 @@ describe Rankrb::Document do
     expect(@doc).not_to be nil
   end
 
+  it 'has an id' do
+    @doc.id = 1
+    expect(@doc.id).to be(1)
+  end
+
   it 'has a default empty string as a body' do
     expect(@doc.body).to eq('')
   end

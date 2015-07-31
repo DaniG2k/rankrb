@@ -1,18 +1,34 @@
 module Rankrb  
   class InvertedIndex
-    attr_accessor :docid
+    attr_accessor :docs
 
     def initialize(params={})
+      @docs = params.fetch(:docs, [])
       #@index_file = params.fetch(:index, Rankrb.configuration.index)
-      @index_file = Rails.root.join('db', 'index.json')
+      #@index_file = Rails.root.join('db', 'index.json')
+      @index_file = 'db/index.json'
     end
 
-    def build(tokens)
+    def build
+      iidx = Hash.new
+      @docs.each do |doc|
+        tokens = Rankrb::Tokenizer.new(doc.body).tokenize
+        tokens.uniq.each do |token|
+          if iidx[token]
+            iidx[token] << doc.id
+          else
+            iidx[token] = [doc.id]
+          end
+        end
+      end
+      iidx
+    end
+
+    def write(tokens)
       if File.exist?(@index_file)
         file = File.read @index_file
         # Merge the new tokens
         iidx = JSON.parse(file).merge(tokens)
-
         File.open(@index_file, 'w+') do |f|
           f.write iidx.to_json
         end

@@ -1,11 +1,11 @@
 module Rankrb
   class Document
-    attr_accessor :doc_id, :body, :rank
+    attr_accessor :id, :body, :rank
 
-    def initialize(params={:body=>'', :rank=>nil})
-      @doc_id = doc_id
-      @body = params[:body]
-      @rank = params[:rank]
+    def initialize(params={})
+      @id = params.fetch :id, nil
+      @body = params.fetch :body, ''
+      @rank = params.fetch :rank, nil
     end
 
     def length

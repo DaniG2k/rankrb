@@ -14,5 +14,10 @@ module Rankrb
         .downcase
         .split
     end
+
+    def uniq
+      uniq
+    end
+    
   end
 end
