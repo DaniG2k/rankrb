@@ -3,23 +3,23 @@ module Rankrb
     attr_accessor :docid
 
     def initialize(params={})
-      @index_file = params.fetch(:index, Rankrb.configuration.index)
+      #@index_file = params.fetch(:index, Rankrb.configuration.index)
+      @index_file = Rails.root.join('db', 'index.json')
     end
 
     def build(tokens)
-      filename = 'db/index.json'
+      if File.exist?(@index_file)
+        file = File.read @index_file
+        # Merge the new tokens
+        iidx = JSON.parse(file).merge(tokens)
 
-      if File.exist?(filename)
-        file = File.read(filename)
-        #merge the new tokens
-        iidx = JSON.parse(file).merge({"a" => "1", "b" => "2"})
-
-        File.open(filename, 'w+') do |f|
+        File.open(@index_file, 'w+') do |f|
           f.write iidx.to_json
         end
       else
-        File.open(filename, 'w') do |f|
-          f.write('This is a test!')
+        # Create & write to file for the first time
+        File.open(@index_file, 'w') do |f|
+          f.write(tokens)
         end
       end
     end

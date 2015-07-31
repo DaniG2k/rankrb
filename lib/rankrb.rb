@@ -5,7 +5,7 @@ require 'rankrb/document'
 require 'rankrb/collection'
 require 'rankrb/tokenizer'
 require 'rankrb/inverted_index'
-require 'pry'
+#require 'pry'
 
 require 'lingua/stemmer'
 #require 'rankrb/stemmer'
@@ -25,10 +25,6 @@ module Rankrb
   
   def self.❨╯°□°❩╯︵┻━┻
     'Calm down yo!'
-  end
-
-  def self.༼ つ ◕_◕ ༽つ
-    "Pika?"
   end
 
   class << self
