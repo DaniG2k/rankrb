@@ -5,11 +5,6 @@ describe Rankrb::Document do
     @doc = Rankrb::Document.new
   end
 
-  it '#body takes a document body' do
-  	@doc.body = "This is a body."
-    expect(@doc).not_to be nil
-  end
-
   it '#id defaults to nil' do
     expect(@doc.id).to be(nil)
   end
@@ -21,6 +16,11 @@ describe Rankrb::Document do
 
   it '#body defaults to an empty string' do
     expect(@doc.body).to eq('')
+  end
+
+  it '#body takes a document body' do
+    @doc.body = "This is a body."
+    expect(@doc).not_to be nil
   end
 
   it '#rank defaults to nil' do

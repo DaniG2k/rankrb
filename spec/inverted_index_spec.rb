@@ -47,12 +47,4 @@ describe Rankrb::InvertedIndex do
     }
     expect(@iidx.build).not_to eq(result)
   end
-  
-  it 'searches the inverted index' do
-  #  expect(false).to eq(true)
-  end
-  
-  it 'deletes the docIDs from the inverted index' do
-  #  expect(false).to eq(true)
-  end
 end
