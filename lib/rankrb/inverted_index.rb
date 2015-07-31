@@ -12,8 +12,7 @@ module Rankrb
     def build
       iidx = Hash.new
       @docs.each do |doc|
-        tokens = Rankrb::Tokenizer.new(doc.body).tokenize
-        tokens.uniq.each do |token|
+        doc.tokens.each do |token|
           if iidx[token]
             iidx[token] << doc.id
           else
