@@ -29,6 +29,7 @@ module Rankrb
       @iidx[word]
     end
 
+    # Define query_or and query_and methods.
     %w(and or).each do |op|
       define_method("query_#{op}") do |word_ary|
         doc_ids = Array.new
