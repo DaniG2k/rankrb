@@ -48,6 +48,14 @@ describe Rankrb::InvertedIndex do
     expect(@iidx.build).not_to eq(result)
   end
 
+  it '#query returns the document ids for a word' do
+    d1 = Rankrb::Document.new :id => 1, :body => "breakthrough drug for schizophrenia"
+    d2 = Rankrb::Document.new :id => 2, :body => "new schizophrenia drug"
+    @iidx.docs = [d1, d2]
+    @iidx.build
+    expect(@iidx.query('breakthrough')).to eq([1])
+  end
+
   it '#query_and performs a conjunctive query' do
     d1 = Rankrb::Document.new :id => 1, :body => "breakthrough drug for schizophrenia"
     d2 = Rankrb::Document.new :id => 2, :body => "new schizophrenia drug"
