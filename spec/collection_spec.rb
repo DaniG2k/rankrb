@@ -33,11 +33,9 @@ describe Rankrb::Collection do
     doc2 = Rankrb::Document.new(:body => "This is another body.")
     doc3 = Rankrb::Document.new(:body => "This is a really really long body.")
     coll = Rankrb::Collection.new(:docs => [doc1, doc2, doc3])
-    
     term = 'another'
-    idf = '%.4f' % coll.idf(term)
 
-    expect(idf).to eq('%.4f' % 0.5108)
+    expect(coll.idf(term)).to be_within(0.0001).of(0.5108)
   end
 
   it '#bm25 calculates the score of docs in a collection using the Okapi BM25+ algorithm' do
@@ -49,8 +47,8 @@ describe Rankrb::Collection do
     sorted = coll.bm25
     first, second, third = sorted.shift, sorted.shift, sorted.shift
     
-    expect('%.2f' % first.rank).to eq("2.02")
-    expect('%.2f' % second.rank).to eq("2.30")
-    expect('%.2f' % third.rank).to eq("3.00")
+    expect(first.rank).to be_within(0.001).of(2.022)
+    expect(second.rank).to be_within(0.001).of(2.297)
+    expect(third.rank).to be_within(0.001).of(3.00)
   end
 end

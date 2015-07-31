@@ -41,7 +41,7 @@ module Rankrb
       doc_ids.inject(:|)
     end
 
-    def write(tokens)
+    def commit(tokens)
       if File.exist?(@index_file)
         file = File.read @index_file
         # Merge the new tokens
