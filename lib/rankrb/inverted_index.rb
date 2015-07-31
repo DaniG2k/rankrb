@@ -20,7 +20,8 @@ module Rankrb
           end
         end
       end
-      iidx
+      # Now sort the document ids!
+      iidx.each {|k, v| iidx[k] = v.sort}
     end
 
     def write(tokens)
