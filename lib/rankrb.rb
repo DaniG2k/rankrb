@@ -27,6 +27,10 @@ module Rankrb
     'Calm down yo!'
   end
 
+  def self.༼ つ ◕_◕ ༽つ
+    "Pika?"
+  end
+
   class << self
     attr_accessor :configuration
   end
