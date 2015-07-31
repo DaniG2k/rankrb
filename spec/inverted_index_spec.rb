@@ -30,7 +30,7 @@ describe Rankrb::InvertedIndex do
     expect(@iidx.build).to eq(result)
   end
 
-  it '#build sorts the tokens\'s doc ids' do
+  it "#build sorts the tokens's doc ids" do
     d3 = Rankrb::Document.new :body => "increase in home sales in july", :id => 3
     d1 = Rankrb::Document.new :body => "new home sales top forecasts", :id => 1
     @iidx.docs = [d3, d1]
@@ -46,5 +46,25 @@ describe Rankrb::InvertedIndex do
       "forecasts"=>[1]
     }
     expect(@iidx.build).not_to eq(result)
+  end
+
+  it '#query_and performs a conjunctive query' do
+    d1 = Rankrb::Document.new :id => 1, :body => "breakthrough drug for schizophrenia"
+    d2 = Rankrb::Document.new :id => 2, :body => "new schizophrenia drug"
+    d3 = Rankrb::Document.new :id => 3, :body => "new approach for treatment of schizophrenia"
+    d4 = Rankrb::Document.new :id => 4, :body => "new hopes for schizophrenia patients"
+    @iidx.docs = [d1, d2, d3, d4]
+    @iidx.build
+    expect(@iidx.query_and(['schizophrenia', 'drug'])).to eq([1, 2])
+  end
+
+  it '#query_or performs a disjunctive query' do
+    d1 = Rankrb::Document.new :id => 1, :body => "breakthrough drug for schizophrenia"
+    d2 = Rankrb::Document.new :id => 2, :body => "new schizophrenia drug"
+    d3 = Rankrb::Document.new :id => 3, :body => "new approach for treatment of schizophrenia"
+    d4 = Rankrb::Document.new :id => 4, :body => "new hopes for schizophrenia patients"
+    @iidx.docs = [d1, d2, d3, d4]
+    @iidx.build
+    expect(@iidx.query_or(['schizophrenia', 'drug'])).to eq([*1..4])
   end
 end

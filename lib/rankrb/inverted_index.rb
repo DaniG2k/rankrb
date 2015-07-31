@@ -7,21 +7,38 @@ module Rankrb
       #@index_file = params.fetch(:index, Rankrb.configuration.index)
       #@index_file = Rails.root.join('db', 'index.json')
       @index_file = 'db/index.json'
+      @iidx = Hash.new
     end
 
     def build
-      iidx = Hash.new
       @docs.each do |doc|
         doc.tokens.each do |token|
-          if iidx[token]
-            iidx[token] << doc.id
+          if @iidx[token]
+            @iidx[token] << doc.id
           else
-            iidx[token] = [doc.id]
+            @iidx[token] = [doc.id]
           end
         end
       end
-      # Now sort the document ids!
-      iidx.each {|k, v| iidx[k] = v.sort}
+      # Now sort the document ids and return the inverted index!
+      @iidx.each {|k, v| @iidx[k] = v.sort}
+    end
+
+    # Returns an array of document ids.
+    def query(word)
+      @iidx[word]
+    end
+
+    def query_and(word_ary)
+      doc_ids = Array.new
+      word_ary.each {|word| doc_ids << query(word) }
+      doc_ids.inject(:&)
+    end
+
+    def query_or(word_ary)
+      doc_ids = Array.new
+      word_ary.each {|word| doc_ids << query(word) }
+      doc_ids.inject(:|)
     end
 
     def write(tokens)
@@ -40,10 +57,5 @@ module Rankrb
       end
     end
 
-    def search(str)
-    end
-
-    def delete(str)
-    end
   end
 end
