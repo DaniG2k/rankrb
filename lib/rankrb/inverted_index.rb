@@ -29,16 +29,18 @@ module Rankrb
       @iidx[word]
     end
 
-    def query_and(word_ary)
-      doc_ids = Array.new
-      word_ary.each {|word| doc_ids << query(word) }
-      doc_ids.inject(:&)
-    end
-
-    def query_or(word_ary)
-      doc_ids = Array.new
-      word_ary.each {|word| doc_ids << query(word) }
-      doc_ids.inject(:|)
+    %w(and or).each do |op|
+      define_method("query_#{op}") do |word_ary|
+        doc_ids = Array.new
+        word_ary.each {|word| doc_ids << query(word) }
+        case op
+        when 'and'
+          symbol = :&
+        when 'or'
+          symbol = :|
+        end
+        doc_ids.inject(symbol)
+      end
     end
 
     def commit(tokens)
