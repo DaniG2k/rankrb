@@ -3,6 +3,10 @@ require 'spec_helper'
 describe Rankrb::InvertedIndex do
   before :each do
     @iidx = Rankrb::InvertedIndex.new
+    @d1 = Rankrb::Document.new :id => 1, :body => "breakthrough drug for schizophrenia"
+    @d2 = Rankrb::Document.new :id => 2, :body => "new schizophrenia drug"
+    @d3 = Rankrb::Document.new :id => 3, :body => "new approach for treatment of schizophrenia"
+    @d4 = Rankrb::Document.new :id => 4, :body => "new hopes for schizophrenia patients"
   end
 
   it '#build defaults to an empty hash' do
@@ -57,33 +61,21 @@ describe Rankrb::InvertedIndex do
   end
 
   it '#query_and performs a conjunctive query' do
-    d1 = Rankrb::Document.new :id => 1, :body => "breakthrough drug for schizophrenia"
-    d2 = Rankrb::Document.new :id => 2, :body => "new schizophrenia drug"
-    d3 = Rankrb::Document.new :id => 3, :body => "new approach for treatment of schizophrenia"
-    d4 = Rankrb::Document.new :id => 4, :body => "new hopes for schizophrenia patients"
-    @iidx.docs = [d1, d2, d3, d4]
+    @iidx.docs = [@d1, @d2, @d3, @d4]
     @iidx.build
     expect(@iidx.query_and(['schizophrenia', 'drug'])).to eq([1, 2])
   end
 
   it '#query_or performs a disjunctive query' do
-    d1 = Rankrb::Document.new :id => 1, :body => "breakthrough drug for schizophrenia"
-    d2 = Rankrb::Document.new :id => 2, :body => "new schizophrenia drug"
-    d3 = Rankrb::Document.new :id => 3, :body => "new approach for treatment of schizophrenia"
-    d4 = Rankrb::Document.new :id => 4, :body => "new hopes for schizophrenia patients"
-    @iidx.docs = [d1, d2, d3, d4]
+    @iidx.docs = [@d1, @d2, @d3, @d4]
     @iidx.build
     expect(@iidx.query_or(['schizophrenia', 'drug'])).to eq([*1..4])
   end
 
   it '#remove_doc removes a given document from the inverted index' do
-    d1 = Rankrb::Document.new :id => 1, :body => "breakthrough drug for schizophrenia"
-    d2 = Rankrb::Document.new :id => 2, :body => "new schizophrenia drug"
-    d3 = Rankrb::Document.new :id => 3, :body => "new approach for treatment of schizophrenia"
-    d4 = Rankrb::Document.new :id => 4, :body => "new hopes for schizophrenia patients"
-    @iidx.docs = [d1, d2, d3, d4]
+    @iidx.docs = [@d1, @d2, @d3, @d4]
     @iidx.build
-    @iidx.remove_doc(d1)
+    @iidx.remove_doc(@d1)
     expect(@iidx.iidx).not_to have_key('breakthrough')
     @iidx.iidx.each {|k, v| expect(v).not_to include(1)}
   end
