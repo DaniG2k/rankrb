@@ -3,8 +3,11 @@ module Rankrb
   # tokenization and query tokenization to ensure that
   # the same terms are being searched and returned.
   class Tokenizer
-    def initialize(doc)
-      @doc = doc
+    attr_accessor :str
+
+    def initialize(str='')
+      @str = str
+      @tokens = Array.new
     end
 
     def tokenize
@@ -12,10 +15,15 @@ module Rankrb
       regex = /[^\s\p{Alnum}\p{Han}\p{Katakana}\p{Hiragana}\p{Hangul}]/
       jap_punctuation = /[？！：。、]/
       
-      @doc.gsub(jap_punctuation, ' ')
-        .gsub(regex,'')
-        .downcase
-        .split
-    end    
+      @tokens = @str.gsub(jap_punctuation, ' ')
+                    .gsub(regex,'')
+                    .downcase
+                    .split
+      @tokens
+    end
+
+    def remove_stopwords!
+      @tokens -= %w(a an and are as at be by for from has he in is it its of on she that the to was were will with)
+    end
   end
 end
