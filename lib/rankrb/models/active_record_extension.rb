@@ -4,7 +4,6 @@ module ActiveRecordExtension
   class_methods do
     def search(str)
       "searching"
-      binding.pry
       # Run a find query that looks at the inverted index.
       # Then use Rankrb::Collection's bm25 method to rank the results.
     end

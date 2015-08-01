@@ -34,10 +34,6 @@ module Rankrb
   end
 
   def self.configure
-    # Can configure as such:
-    # Obj.configure do |conf|
-    #   conf.some_key = 'abc123'
-    # end
     yield(configuration) if block_given?
   end
 
