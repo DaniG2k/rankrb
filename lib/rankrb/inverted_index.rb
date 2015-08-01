@@ -1,6 +1,6 @@
 module Rankrb  
   class InvertedIndex
-    attr_accessor :docs
+    attr_accessor :docs, :iidx
 
     def initialize(params={})
       @docs = params.fetch(:docs, [])
@@ -22,6 +22,16 @@ module Rankrb
       end
       # Now sort the document ids and return the inverted index!
       @iidx.each {|k, v| @iidx[k] = v.sort}
+    end
+
+    def remove_doc(doc)
+      doc.tokens.each do |token|
+        # Remove the document id
+        @iidx[token].delete(doc.id)
+        # Remove the key from the hash if there are no docs
+        @iidx.delete(token) if @iidx[token].empty?
+      end
+      @iidx
     end
 
     # Returns an array of document ids.
