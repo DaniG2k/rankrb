@@ -44,7 +44,7 @@ describe Rankrb::Document do
 
   it '#tokens returns the uniqe terms in a document' do
     @doc.body = 'In this document here, there are some terms that repeat here.'
-    res = %w(in this document here there are some term that repeat)
+    res = %w(this document here there some term repeat)
     expect(@doc.tokens).to eq(res)
   end
 end

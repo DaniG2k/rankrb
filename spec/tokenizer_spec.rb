@@ -7,7 +7,7 @@ describe Rankrb::Tokenizer do
 
   it 'tokenizes a string' do
     @tokenizer.str = "This is a body."
-    expect(@tokenizer.tokenize).to eq(%w(this is a bodi))
+    expect(@tokenizer.tokenize).to eq(%w(this bodi))
   end
 
   it 'tokenizes known words properly' do
@@ -30,11 +30,5 @@ describe Rankrb::Tokenizer do
   it 'tokenizes words with apostophes properly' do
     @tokenizer.str = "O'Neill aren't"
     expect(@tokenizer.tokenize).to eq(%w(oneil arent))
-  end
-
-  it '#remove_stopwords! removes unwanted words' do
-    @tokenizer.str = 'To be or not to be, that is the question.'
-    @tokenizer.tokenize
-    expect(@tokenizer.remove_stopwords!).to eq(%w(or not question))
   end
 end

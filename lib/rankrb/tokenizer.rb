@@ -8,6 +8,7 @@ module Rankrb
     def initialize(str='')
       @str = str
       @tokens = Array.new
+      @stopwords = %w(a an and are as at be by for from has he in is it its of on she that the to was were will with)
       # Change this to support multiple languages eventually:
       @lang = 'en'
     end
@@ -21,12 +22,9 @@ module Rankrb
                     .gsub(regex,'')
                     .downcase
                     .split
+                    .delete_if {|token| @stopwords.include?(token)}
                     .map {|w| Lingua.stemmer(w, :language => @lang)}
       @tokens
-    end
-
-    def remove_stopwords!
-      @tokens -= %w(a an and are as at be by for from has he in is it its of on she that the to was were will with)
     end
   end
 end

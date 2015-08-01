@@ -1,4 +1,4 @@
-module Rankrb  
+module Rankrb
   class InvertedIndex
     attr_accessor :docs, :iidx
 
@@ -35,15 +35,16 @@ module Rankrb
     end
 
     # Returns an array of document ids.
-    def query(word)
-      @iidx[word]
+    def find(word)
+      q = Rankrb::Tokenizer.new(word).tokenize.shift
+      @iidx[q]
     end
 
     # Define query_or and query_and methods.
     %w(and or).each do |op|
       define_method("query_#{op}") do |word_ary|
         doc_ids = Array.new
-        word_ary.each {|word| doc_ids << query(word) }
+        word_ary.each {|word| doc_ids << find(word) }
         case op
         when 'and'
           symbol = :&
