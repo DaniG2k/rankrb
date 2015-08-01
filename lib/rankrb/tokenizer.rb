@@ -8,9 +8,9 @@ module Rankrb
     def initialize(str='')
       @str = str
       @tokens = Array.new
-      @stopwords = %w(a an and are as at be by for from has he in is it its of on she that the to was were will with)
+      @stopwords = Rankrb.configuration.stopwords
       # Change this to support multiple languages eventually:
-      @lang = 'en'
+      @lang = Rankrb.configuration.language
     end
 
     def tokenize

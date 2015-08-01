@@ -20,10 +20,7 @@ require 'rankrb/railtie' if defined? Rails
 require 'rankrb/models/active_record_extension'
 
 module Rankrb
-  class Configuration
-    attr_accessor :index
-  end
-  
+
   def self.❨╯°□°❩╯︵┻━┻
     'Calm down yo!'
   end
@@ -42,5 +39,15 @@ module Rankrb
     #   conf.some_key = 'abc123'
     # end
     yield(configuration) if block_given?
+  end
+
+  class Configuration
+    attr_accessor :index, :language, :stopwords
+
+    def initialize
+      @index = 'db/index.json'
+      @language = 'en'
+      @stopwords = %w(a an and are as at be by for from has he in is it its of on she that the to was were will with)
+    end
   end
 end
