@@ -13,11 +13,6 @@ module Rankrb
         .gsub(regex,'')
         .downcase
         .split
-    end
-
-    def uniq
-      uniq
-    end
-    
+    end    
   end
 end

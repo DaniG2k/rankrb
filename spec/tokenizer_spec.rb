@@ -18,4 +18,9 @@ describe Rankrb::Tokenizer do
     tokenizer = Rankrb::Tokenizer.new(str)
     expect(tokenizer.tokenize).to eq(['이것은', '문서', '체입니다'])
   end
+
+  it 'tokenizes words with apostophes properly' do
+    str = "O'Neill aren't"
+    expect(Rankrb::Tokenizer.new(str).tokenize).to eq(%w(oneill arent))
+  end
 end
