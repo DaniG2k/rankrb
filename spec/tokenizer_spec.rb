@@ -10,6 +10,13 @@ describe Rankrb::Tokenizer do
     expect(@tokenizer.tokenize).to eq(%w(this is a body))
   end
 
+  it 'tokenizes known words properly' do
+    @tokenizer.str = 'U.S.A.'
+    expect(@tokenizer.tokenize).to eq(['usa'])
+    @tokenizer.str = 'anti-discriminatory'
+    expect(@tokenizer.tokenize).to eq(['antidiscriminatory'])
+  end
+
   it 'tokenizes a Japanese string' do
     @tokenizer.str = "これは、文書体です。"
     expect(@tokenizer.tokenize).to eq(["これは","文書体です"])
