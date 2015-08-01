@@ -7,14 +7,14 @@ describe Rankrb::Tokenizer do
 
   it 'tokenizes a string' do
     @tokenizer.str = "This is a body."
-    expect(@tokenizer.tokenize).to eq(%w(this is a body))
+    expect(@tokenizer.tokenize).to eq(%w(this is a bodi))
   end
 
   it 'tokenizes known words properly' do
     @tokenizer.str = 'U.S.A.'
     expect(@tokenizer.tokenize).to eq(['usa'])
     @tokenizer.str = 'anti-discriminatory'
-    expect(@tokenizer.tokenize).to eq(['antidiscriminatory'])
+    expect(@tokenizer.tokenize).to eq(['antidiscriminatori'])
   end
 
   it 'tokenizes a Japanese string' do
@@ -29,7 +29,7 @@ describe Rankrb::Tokenizer do
 
   it 'tokenizes words with apostophes properly' do
     @tokenizer.str = "O'Neill aren't"
-    expect(@tokenizer.tokenize).to eq(%w(oneill arent))
+    expect(@tokenizer.tokenize).to eq(%w(oneil arent))
   end
 
   it '#remove_stopwords! removes unwanted words' do

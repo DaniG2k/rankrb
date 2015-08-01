@@ -8,6 +8,8 @@ module Rankrb
     def initialize(str='')
       @str = str
       @tokens = Array.new
+      # Change this to support multiple languages eventually:
+      @lang = 'en'
     end
 
     def tokenize
@@ -19,6 +21,7 @@ module Rankrb
                     .gsub(regex,'')
                     .downcase
                     .split
+                    .map {|w| Lingua.stemmer(w, :language => @lang)}
       @tokens
     end
 

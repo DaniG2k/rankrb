@@ -19,13 +19,13 @@ describe Rankrb::InvertedIndex do
     result = {
       "new"=>[1, 4],
       "home"=>[1, 2, 3, 4],
-      "sales"=>[1, 2, 3, 4],
+      "sale"=>[1, 2, 3, 4],
       "top"=>[1],
-      "forecasts"=>[1],
+      "forecast"=>[1],
       "rise"=>[2, 4],
       "in"=>[2, 3],
-      "july"=>[2, 3, 4],
-      "increase"=>[3]
+      "juli"=>[2, 3, 4],
+      "increas"=>[3]
     }
     expect(@iidx.build).to eq(result)
   end
