@@ -12,7 +12,7 @@ module Rankrb
 
     def build
       @collection.docs.each do |doc|
-        doc.tokens.each do |token|
+        doc.uniq_tokens.each do |token|
           if @iidx[token]
             @iidx[token] << doc.id
           else
@@ -38,9 +38,14 @@ module Rankrb
     end
 
     # Returns an array of document ids.
-    def find(word)
-      q = Rankrb::Tokenizer.new(word).tokenize.shift
-      @iidx[q]
+    def find(str)
+      Rankrb::Tokenizer.new(str)
+        .tokenize
+        .map {|token| @iidx[token]}
+        .compact
+        .flatten
+        .uniq
+        .sort
     end
 
     # Define query_or and query_and methods.
