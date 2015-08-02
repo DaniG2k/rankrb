@@ -4,6 +4,7 @@ module Rankrb
   # the same terms are being searched and returned.
   class Tokenizer
     attr_accessor :str
+    attr_reader :tokens
 
     def initialize(str='')
       @str = str
