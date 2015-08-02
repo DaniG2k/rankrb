@@ -6,7 +6,6 @@ module Rankrb
       @id = params.fetch :id, nil
       @body = params.fetch :body, ''
       @rank = params.fetch :rank, nil
-
     end
 
     def length
