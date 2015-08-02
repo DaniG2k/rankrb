@@ -1,10 +1,10 @@
 module Rankrb
   
   class InvertedIndex
-    attr_accessor :docs, :iidx
+    attr_accessor :collection, :iidx
 
     def initialize(params={})
-      @docs = params.fetch(:docs, [])
+      @collection = params.fetch(:collection, Rankrb::Collection.new)
       #@index_file = params.fetch(:index, Rankrb.configuration.index)
       #@index_file = Rails.root.join('db', 'index.json')
       @index_file = 'db/index.json'
@@ -12,7 +12,7 @@ module Rankrb
     end
 
     def build
-      @docs.each do |doc|
+      @collection.docs.each do |doc|
         doc.tokens.each do |token|
           if @iidx[token]
             @iidx[token] << doc.id
@@ -32,6 +32,9 @@ module Rankrb
         # Remove the key from the hash if there are no docs
         @iidx.delete(token) if @iidx[token].empty?
       end
+      # Once all tokens have been removed,
+      # temove the document from the collection.
+      @collection.remove_doc(doc)
       @iidx
     end
 

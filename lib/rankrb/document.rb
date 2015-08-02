@@ -28,16 +28,5 @@ module Rankrb
     def to_token
       Rankrb::Tokenizer.new(@body).tokenize
     end
-
-    def get_next_doc_id
-      config_path = File.expand_path("../#{@config.index}", __FILE__)
-      unless @idx.nil?
-        File.open(config_path) {|f| f.readline}
-      end
-    end
-
-    def set_next_doc_id
-      # Write the @doc_id + 1 to config
-    end
   end
 end

@@ -10,11 +10,22 @@ describe Rankrb::Collection do
     expect(coll.containing_term('Asian')).to eq(1)
   end
 
+  it '#remove_doc removes a given document from a collection' do
+    doc1 = Rankrb::Document.new(:body => "This is a body.", :id => 1)
+    coll = Rankrb::Collection.new(:docs => [doc1])
+    coll.remove_doc(doc1)
+    expect(coll.docs).to eq([])
+  end
+
   it '#avg_dl returns the average document length' do
-    doc1 = Rankrb::Document.new(:body => "This is a body.")
-    doc2 = Rankrb::Document.new(:body => "This is another body.")
-    doc3 = Rankrb::Document.new(:body => "This is a really really long body.")
-    coll = Rankrb::Collection.new(:docs => [doc1, doc2, doc3])
+    doc1 = Rankrb::Document.new(:body => "This is a body.", id: 1)
+    doc2 = Rankrb::Document.new(:body => "This is another body.", id: 2)
+    doc3 = Rankrb::Document.new(:body => "This is a really really long body.", id: 3)
+    coll = Rankrb::Collection.new
+
+    [doc1, doc2, doc3].each do |doc|
+      coll.docs << doc
+    end
 
     test_avg_dl = (doc1.length + doc2.length + doc3.length) / 3
     expect(coll.avg_dl).to eq(test_avg_dl)
@@ -32,7 +43,11 @@ describe Rankrb::Collection do
     doc1 = Rankrb::Document.new(:body => "This is a body.")
     doc2 = Rankrb::Document.new(:body => "This is another body.")
     doc3 = Rankrb::Document.new(:body => "This is a really really long body.")
-    coll = Rankrb::Collection.new(:docs => [doc1, doc2, doc3])
+    coll = Rankrb::Collection.new
+
+    [doc1, doc2, doc3].each do |doc|
+      coll.docs << doc
+    end
     term = 'another'
 
     expect(coll.idf(term)).to be_within(0.0001).of(0.5108)

@@ -4,8 +4,20 @@ module ActiveRecordExtension
   class_methods do
     def search(str)
       "searching"
-      # Run a find query that looks at the inverted index.
-      # Then use Rankrb::Collection's bm25 method to rank the results.
+      # Load the inverted index.
+      # Run .find to search for the keywords.
+      # Use Rankrb::Collection's bm25 method to rank the results.
+    end
+
+    def import
+      # TODO:
+      # Will need to import custom fields evnetually
+      binding.pry
+      coll = Rankrb::Collection.new
+      all.each do |obj|
+        coll.docs << Rankrb::Document.new(:id => obj.id, :body => obj.body)
+      end
+      index = Rankrb::InvertedIndex.new(:collection => coll)
     end
   end
 

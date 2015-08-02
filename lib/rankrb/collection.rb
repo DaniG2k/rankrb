@@ -1,10 +1,18 @@
 module Rankrb
   class Collection
-    attr_accessor :query
+    attr_accessor :query, :docs
 
-    def initialize(params={:docs=>[], :query=>nil})
-      @docs = params[:docs]
-      @query = params[:query]
+    def initialize(params={})
+      @docs = params.fetch(:docs, [])
+      @query = params.fetch(:query, nil)
+
+      def @docs.<<(arg)
+        self.push arg
+      end
+    end
+
+    def remove_doc(doc)
+      @docs.delete_if { |d| d == doc }
     end
 
     def containing_term(term)
