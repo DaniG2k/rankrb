@@ -10,6 +10,13 @@ describe Rankrb::Collection do
     expect(coll.containing_term('Asian')).to eq(1)
   end
 
+  it '#<< adds a given document to a collection' do
+    doc1 = Rankrb::Document.new(:body => "This is a body.", :id => 1)
+    coll = Rankrb::Collection.new
+    coll.docs << doc1
+    expect(coll.docs[0]).to eq(doc1)
+  end
+
   it '#remove_doc removes a given document from a collection' do
     doc1 = Rankrb::Document.new(:body => "This is a body.", :id => 1)
     coll = Rankrb::Collection.new(:docs => [doc1])
