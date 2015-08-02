@@ -1,5 +1,4 @@
 module Rankrb
-  
   class InvertedIndex
     attr_accessor :collection, :iidx
 
@@ -64,15 +63,12 @@ module Rankrb
         file = File.read @index_file
         # Merge the new tokens
         index = JSON.parse(file).merge(@iidx)
-        File.open(@index_file, 'w+') do |f|
-          f.write index.to_json
-        end
+        File.open(@index_file, 'w+') { |f| f.write(index.to_json) }
       else
         # Create & write to file for the first time
-        File.open(@index_file, 'w') do |f|
-          f.write @iidx
-        end
+        File.open(@index_file, 'w') { |f| f.write(@iidx) }
       end
     end
+
   end
 end
