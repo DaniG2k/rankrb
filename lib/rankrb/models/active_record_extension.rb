@@ -4,7 +4,6 @@ module ActiveRecordExtension
   class_methods do
     def search(str)
       query = Rankrb::Tokenizer.new(str).tokenize
-      binding.pry
       # Load the inverted index.
       # Run .find to search for the keywords.
       # Use Rankrb::Collection's bm25 method to rank the results.

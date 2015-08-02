@@ -27,9 +27,9 @@ describe Rankrb::Document do
     expect(@doc.rank).to be_nil
   end
 
-  it '#length returns a document\'s body length' do
+  it '#length tokenizes a string and returns a document\'s body length' do
   	@doc.body = "This is a body."
-    expect(@doc.length).to eq(15)
+    expect(@doc.length).to eq(9)
   end
 
   it '#include? returns true if a document includes a specific string' do
@@ -42,9 +42,15 @@ describe Rankrb::Document do
     expect(@doc.term_freq("here")).to eq(2)
   end
 
-  it '#tokens returns the uniqe terms in a document' do
+  it '#tokens returns the tokens in a document' do
+    @doc.body = 'In this document here, there are some terms that repeat here.'
+    res = %w(this document here there some term repeat here)
+    expect(@doc.tokens).to eq(res)
+  end
+
+  it '#uniq_tokens returns the uniqe tokens in a document' do
     @doc.body = 'In this document here, there are some terms that repeat here.'
     res = %w(this document here there some term repeat)
-    expect(@doc.tokens).to eq(res)
+    expect(@doc.uniq_tokens).to eq(res)
   end
 end

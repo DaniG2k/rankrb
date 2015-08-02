@@ -69,8 +69,8 @@ describe Rankrb::Collection do
     sorted = coll.bm25
     first, second, third = sorted.shift, sorted.shift, sorted.shift
     
-    expect(first.rank).to be_within(0.001).of(2.022)
-    expect(second.rank).to be_within(0.001).of(2.297)
+    expect(first.rank).to be_within(0.001).of(0.181)
+    expect(second.rank).to be_within(0.001).of(0.984)
     expect(third.rank).to be_within(0.001).of(3.00)
   end
 end
