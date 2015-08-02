@@ -59,21 +59,20 @@ module Rankrb
       end
     end
 
-    # def commit(tokens)
-    #   if File.exist?(@index_file)
-    #     file = File.read @index_file
-    #     # Merge the new tokens
-    #     iidx = JSON.parse(file).merge(tokens)
-    #     File.open(@index_file, 'w+') do |f|
-    #       f.write iidx.to_json
-    #     end
-    #   else
-    #     # Create & write to file for the first time
-    #     File.open(@index_file, 'w') do |f|
-    #       f.write(tokens)
-    #     end
-    #   end
-    # end
-
+    def commit!
+      if File.exist?(@index_file)
+        file = File.read @index_file
+        # Merge the new tokens
+        index = JSON.parse(file).merge(@iidx)
+        File.open(@index_file, 'w+') do |f|
+          f.write index.to_json
+        end
+      else
+        # Create & write to file for the first time
+        File.open(@index_file, 'w') do |f|
+          f.write @iidx
+        end
+      end
+    end
   end
 end

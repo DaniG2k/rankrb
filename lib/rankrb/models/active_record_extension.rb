@@ -18,8 +18,7 @@ module ActiveRecordExtension
       end
       index = Rankrb::InvertedIndex.new(:collection => coll)
       index.build
-      # TODO:
-      # Commit db
+      index.commit!
     end
   end
 
