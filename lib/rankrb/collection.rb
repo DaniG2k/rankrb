@@ -12,7 +12,9 @@ module Rankrb
     end
 
     def remove_doc(doc)
-      @docs.delete_if { |d| d == doc }
+      @docs.delete_if do |curr_doc|
+        curr_doc == doc
+      end
     end
 
     def containing_term(term)

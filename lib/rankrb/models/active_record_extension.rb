@@ -10,14 +10,16 @@ module ActiveRecordExtension
     end
 
     def import
-      # TODO:
-      # Will need to import custom fields evnetually
-      binding.pry
       coll = Rankrb::Collection.new
       all.each do |obj|
+        # TODO:
+        # Will need to import custom fields evnetually
         coll.docs << Rankrb::Document.new(:id => obj.id, :body => obj.body)
       end
       index = Rankrb::InvertedIndex.new(:collection => coll)
+      index.build
+      # TODO:
+      # Commit db
     end
   end
 
