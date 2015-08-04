@@ -9,20 +9,23 @@ module Rankrb
     end
 
     def tokens
-      @t = Rankrb::Tokenizer.new(@body).tokenize
-      @t
+      @tknz = Rankrb::Tokenizer.new(@body).tokenize
     end
 
     def length
-      @t.join(' ').length
+      @tknz.join(' ').length
     end
 
     def include?(term)
-      @t.include? term
+      @tknz.include? term
     end
 
     def term_freq(term)
-      @t.count term
+      @tknz.count term
+    end
+
+    def uniq
+      binding.pry
     end
     #private
     #def term_to_token(term)

@@ -21,7 +21,7 @@ module Rankrb
       #   }
       # }
       @collection.docs.each do |doc|
-        doc.tokens.each do |token|
+        doc.tokens.uniq.each do |token|
           tf = doc.term_freq(token)
           if @iidx[token]
             @iidx[token][:ids] = Hash.new unless @iidx[token][:ids]
@@ -55,13 +55,9 @@ module Rankrb
 
     # Returns an array of document ids.
     def find(str)
-      query = Rankrb::Tokenizer.new(str).tokenize
-      @iidx[query]
-        #.map {|token| @iidx[token]}
-        #.compact
-        #.flatten
-        #.uniq
-        #.sort
+      binding.pry
+      tokens = Rankrb::Tokenizer.new(str).tokenize
+      @iidx[token]
     end
 
     # Define query_or and query_and methods.
