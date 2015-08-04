@@ -8,29 +8,25 @@ module Rankrb
       @rank = params.fetch :rank, nil
     end
 
+    def tokens
+      @t = Rankrb::Tokenizer.new(@body).tokenize
+      @t
+    end
+
     def length
-      tokens.join(' ').length
+      @t.join(' ').length
     end
 
     def include?(term)
-      tokens.include? term_to_token(term)
+      @t.include? term
     end
 
     def term_freq(term)
-      tokens.count term_to_token(term)
+      @t.count term
     end
-
-    def tokens
-      Rankrb::Tokenizer.new(@body).tokenize
-    end
-
-    def uniq_tokens
-      tokens.uniq
-    end
-
-    private
-    def term_to_token(term)
-      Rankrb::Tokenizer.new(term).tokenize.shift
-    end
+    #private
+    #def term_to_token(term)
+    #  Rankrb::Tokenizer.new(term).tokenize.shift
+    #end
   end
 end

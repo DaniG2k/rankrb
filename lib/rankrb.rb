@@ -38,7 +38,7 @@ module Rankrb
   end
 
   class Configuration
-    attr_accessor :app_id
+    attr_accessor :app_id,
                   :index_file,
                   :language, 
                   :stopwords

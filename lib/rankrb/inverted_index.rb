@@ -9,12 +9,30 @@ module Rankrb
     end
 
     def build
+      # JSON file has the following format:
+      # {:term1=>
+      #   {:doc_freq => 993427,
+      #    :ids => {
+      #      :"1"=>6,
+      #      :"2"=>5,
+      #      :"4"=>5,
+      #      :"5"=>2,
+      #      :"7"=>3}
+      #   }
+      # }
       @collection.docs.each do |doc|
-        doc.uniq_tokens.each do |token|
+        doc.tokens.each do |token|
+          tf = doc.term_freq(token)
           if @iidx[token]
-            @iidx[token] << doc.id
+            @iidx[token][:ids] = Hash.new unless @iidx[token][:ids]
+            # Record the frequency of the term in doc
+            @iidx[token][:ids][doc.id] = tf
+            @iidx[token][:doc_freq] += tf
           else
-            @iidx[token] = [doc.id]
+            @iidx[token] = {
+              :doc_freq => tf,
+              :ids => { doc.id => tf }
+            }
           end
         end
       end
@@ -37,13 +55,13 @@ module Rankrb
 
     # Returns an array of document ids.
     def find(str)
-      Rankrb::Tokenizer.new(str)
-        .tokenize
-        .map {|token| @iidx[token]}
-        .compact
-        .flatten
-        .uniq
-        .sort
+      query = Rankrb::Tokenizer.new(str).tokenize
+      @iidx[query]
+        #.map {|token| @iidx[token]}
+        #.compact
+        #.flatten
+        #.uniq
+        #.sort
     end
 
     # Define query_or and query_and methods.

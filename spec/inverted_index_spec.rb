@@ -30,14 +30,22 @@ describe Rankrb::InvertedIndex do
     @index.collection = coll
     
     result = {
-      "new" => [1, 4],
-      "home" => [1, 2, 3, 4],
-      "sale" => [1, 2, 3, 4],
-      "top" => [1],
-      "forecast" => [1],
-      "rise" => [2, 4],
-      "juli" => [2, 3, 4],
-      "increas" => [3]
+      "new" => [[:doc_freq, 2],
+                [:ids, {1=>1, 4=>1}]],
+      "home"=> [[:doc_freq, 4],
+                [:ids, {1=>1, 2=>1, 3=>1, 4=>1}]],
+      "sale"=> [[:doc_freq, 4],
+                [:ids, {1=>1, 2=>1, 3=>1, 4=>1}]],
+      "top" => [[:doc_freq, 1],
+              [:ids, {1=>1}]],
+      "forecast"=>[[:doc_freq, 1],
+                   [:ids, {1=>1}]],
+      "rise" => [[:doc_freq, 2],
+                 [:ids, {2=>1, 4=>1}]],
+      "juli" => [[:doc_freq, 3],
+                 [:ids, {2=>1, 3=>1, 4=>1}]],
+      "increas" => [[:doc_freq, 1],
+                    [:ids, {3=>1}]]
     }
     
     expect(@index.build).to eq(result)
@@ -73,7 +81,7 @@ describe Rankrb::InvertedIndex do
     @index.collection = coll
     
     @index.build
-    expect(@index.find('breakthrough')).to eq([1])
+    expect(@index.find('breakthrough')).to eq([[:doc_freq, 1], [:ids, {1=>1}]])
   end
 
   it "#find returns an array of document ids for a series of words" do
