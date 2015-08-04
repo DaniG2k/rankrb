@@ -25,7 +25,7 @@ module Rankrb
     end
 
     def uniq
-      binding.pry
+      uniq
     end
     #private
     #def term_to_token(term)

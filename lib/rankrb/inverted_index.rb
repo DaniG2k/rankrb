@@ -36,8 +36,7 @@ module Rankrb
           end
         end
       end
-      # Now sort the document ids and return the inverted index!
-      @iidx.each {|k, v| @iidx[k] = v.sort}
+      @iidx
     end
 
     def remove_doc(doc)
@@ -55,7 +54,6 @@ module Rankrb
 
     # Returns an array of document ids.
     def find(str)
-      binding.pry
       tokens = Rankrb::Tokenizer.new(str).tokenize
       @iidx[token]
     end

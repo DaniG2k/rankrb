@@ -30,46 +30,17 @@ describe Rankrb::InvertedIndex do
     @index.collection = coll
     
     result = {
-      "new" => [[:doc_freq, 2],
-                [:ids, {1=>1, 4=>1}]],
-      "home"=> [[:doc_freq, 4],
-                [:ids, {1=>1, 2=>1, 3=>1, 4=>1}]],
-      "sale"=> [[:doc_freq, 4],
-                [:ids, {1=>1, 2=>1, 3=>1, 4=>1}]],
-      "top" => [[:doc_freq, 1],
-              [:ids, {1=>1}]],
-      "forecast"=>[[:doc_freq, 1],
-                   [:ids, {1=>1}]],
-      "rise" => [[:doc_freq, 2],
-                 [:ids, {2=>1, 4=>1}]],
-      "juli" => [[:doc_freq, 3],
-                 [:ids, {2=>1, 3=>1, 4=>1}]],
-      "increas" => [[:doc_freq, 1],
-                    [:ids, {3=>1}]]
+      "new" => {:doc_freq => 2, :ids => {1=>1, 4=>1}},
+      "home"=> {:doc_freq => 4, :ids => {1=>1, 2=>1, 3=>1, 4=>1}},
+      "sale"=> {:doc_freq => 4, :ids =>{1=>1, 2=>1, 3=>1, 4=>1}},
+      "top" => {:doc_freq =>1, :ids => {1=>1}},
+      "forecast"=> {:doc_freq => 1, :ids => {1=>1}},
+      "rise" => {:doc_freq => 2, :ids => {2=>1, 4=>1}},
+      "juli" => {:doc_freq => 3, :ids => {2=>1, 3=>1, 4=>1}},
+      "increas" => {:doc_freq => 1, :ids => {3=>1}}
     }
     
     expect(@index.build).to eq(result)
-  end
-
-  it "#build sorts the tokens's doc ids" do
-    d3 = Rankrb::Document.new :body => "increase in home sales in july", :id => 3
-    d1 = Rankrb::Document.new :body => "new home sales top forecasts", :id => 1
-    
-    coll = Rankrb::Collection.new
-    [d1, d3].each {|d| coll.docs << d}
-    @index.collection = coll
-    
-    result = {
-      "increase"=>[3],
-      "in"=>[3],
-      "home"=>[3, 1],
-      "sales"=>[3, 1],
-      "july"=>[3],
-      "new"=>[1],
-      "top"=>[1],
-      "forecasts"=>[1]
-    }
-    expect(@index.build).not_to eq(result)
   end
 
   it '#find returns the document ids for a string' do

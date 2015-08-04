@@ -11,8 +11,8 @@ describe Rankrb do
 
   it 'allows configuration via a block' do
   	Rankrb.configure do |conf|
-  		conf.index = 'indexfile.idx'
+  		conf.index_file = 'indexfile.idx'
   	end
-  	expect(Rankrb.configuration.index).to eq('indexfile.idx')
+  	expect(Rankrb.configuration.index_file).to eq('indexfile.idx')
   end
 end
