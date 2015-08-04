@@ -39,13 +39,15 @@ module Rankrb
 
   class Configuration
     attr_accessor :app_id
-                  :index,
+                  :index_file,
                   :language, 
                   :stopwords
 
     def initialize
       @app_id = 'default'
-      @index = "db/#{@app_id}-index.json"
+      # Should be more like Rails.root.join('db', 'index.json')
+      # for integration with a Rails app:
+      @index_file = "db/#{@app_id}-index.json"
       @language = 'en'
       @stopwords = %w(a an and are as at be by for from has he in is it its of on she that the to was were will with)
     end

@@ -4,9 +4,7 @@ module Rankrb
 
     def initialize(params={})
       @collection = params.fetch(:collection, Rankrb::Collection.new)
-      #@index_file = params.fetch(:index, Rankrb.configuration.index)
-      #@index_file = Rails.root.join('db', 'index.json')
-      @index_file = 'db/index.json'
+      @index_file = Rankrb.configuration.index_file
       @iidx = Hash.new
     end
 
