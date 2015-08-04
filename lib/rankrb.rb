@@ -38,10 +38,14 @@ module Rankrb
   end
 
   class Configuration
-    attr_accessor :index, :language, :stopwords
+    attr_accessor :app_id
+                  :index,
+                  :language, 
+                  :stopwords
 
     def initialize
-      @index = 'db/index.json'
+      @app_id = 'default'
+      @index = "db/#{@app_id}-index.json"
       @language = 'en'
       @stopwords = %w(a an and are as at be by for from has he in is it its of on she that the to was were will with)
     end

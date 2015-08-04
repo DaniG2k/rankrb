@@ -11,15 +11,19 @@ module ActiveRecordExtension
     end
 
     def import
-      coll = Rankrb::Collection.new
-      all.each do |obj|
+      all.each_slice(1000) do |batch|
         # TODO:
         # Will need to import custom fields evnetually
-        coll.docs << Rankrb::Document.new(:id => obj.id, :body => obj.body)
+        coll = Rankrb::Collection.new
+        batch.each do |obj|
+          coll.docs << Rankrb::Document.new id: obj.id, body: obj.body
+        end
+        index = Rankrb::InvertedIndex.new collection: coll 
+        index.build
+        # TODO: commit will need to take into account a db that already
+        # exists, merging the json.
+        index.commit!
       end
-      index = Rankrb::InvertedIndex.new(:collection => coll)
-      index.build
-      index.commit!
     end
   end
 
