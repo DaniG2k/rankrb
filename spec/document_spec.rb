@@ -48,9 +48,9 @@ describe Rankrb::Document do
     expect(@doc.tokens).to eq(res)
   end
 
-  it '#uniq_tokens returns the uniqe tokens in a document' do
+  it '#uniq returns the uniqe tokens in a document' do
     @doc.body = 'In this document here, there are some terms that repeat here.'
     res = %w(this document here there some term repeat)
-    expect(@doc.uniq_tokens).to eq(res)
+    expect(@doc.uniq).to eq(res)
   end
 end
