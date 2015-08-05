@@ -52,10 +52,10 @@ module Rankrb
       @iidx
     end
 
-    # Returns an array of document ids.
     def find(str)
       tokens = Rankrb::Tokenizer.new(str).tokenize
-      @iidx[token]
+      #@collection.query = str
+      #@collection.bm25
     end
 
     # Define query_or and query_and methods.

@@ -53,6 +53,7 @@ module Rankrb
         end
         doc.rank = score
       end
+      @docs
     end
   end
 end

@@ -50,9 +50,8 @@ describe Rankrb::InvertedIndex do
 
     [d1,d2].each {|d| coll.docs << d}
     @index.collection = coll
-    
     @index.build
-    expect(@index.find('breakthrough')).to eq({:doc_freq=>1, :ids => {1 => 1}})
+    expect(@index.find('breakthrough drug')).to eq({:doc_freq=>1, :ids => {1 => 1}})
   end
 
   it "#find returns an array of document ids for a series of words" do
