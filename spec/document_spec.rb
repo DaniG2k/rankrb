@@ -34,7 +34,8 @@ describe Rankrb::Document do
 
   it '#include? returns true if a document includes a specific string' do
   	@doc.body = "Japan is also known as the Land of the Rising Sun."
-    expect(@doc.include?("Japan")).to be true
+    # Note: the token must pass through the tokenizer in theory
+    expect(@doc.include?("japan")).to be true
   end
 
   it '#term_freq returns frequency of a string in a document body' do

@@ -43,17 +43,16 @@ module Rankrb
       @docs.each do |doc|
         score = 0
         dl = doc.length
-        query_terms = @query.split
+        tokens = Rankrb::Tokenizer.new(@query).tokenize
 
-        query_terms.each do |term|
-          dtf = doc.term_freq(term)
+        tokens.each do |token|
+          dtf = doc.term_freq(token)
           numerator = dtf * (@k + 1)
           denominator = dtf + @k * (1 - @b + @b * (doc.length / avg_dl))
-          score += idf(term) * (numerator/denominator) + @delta
+          score += idf(token) * (numerator/denominator) + @delta
         end
         doc.rank = score
       end
-      @docs.sort {|a, b| a.rank <=> b.rank}
     end
   end
 end

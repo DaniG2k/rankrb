@@ -6,8 +6,10 @@ describe Rankrb::Collection do
     doc1 = Rankrb::Document.new :body => str
     doc2 = Rankrb::Document.new :body => 'Eastern Europe'
     coll = Rankrb::Collection.new(:docs => [doc1, doc2])
-
-    expect(coll.containing_term('Asian')).to eq(1)
+    
+    t = Rankrb::Tokenizer.new('Asian').tokenize.shift
+    # Note: containing_term requires a tokenized term
+    expect(coll.containing_term(t)).to eq(1)
   end
 
   it '#<< adds a given document to a collection' do
@@ -55,7 +57,7 @@ describe Rankrb::Collection do
     [doc1, doc2, doc3].each do |doc|
       coll.docs << doc
     end
-    term = 'another'
+    term = Rankrb::Tokenizer.new('another').tokenize.shift
 
     expect(coll.idf(term)).to be_within(0.0001).of(0.5108)
   end
@@ -66,11 +68,10 @@ describe Rankrb::Collection do
     doc3 = Rankrb::Document.new(:body => "The Japanese government has decided to scrap its controversial plans for the stadium for the 2020 Tokyo Olympics and Paralympics. Prime Minister Shinzo Abe said his government would \"start over from zero\" and find a new design. The original design, by British architect Zaha Hadid, had come under criticism as estimated building costs rose to $2bn (£1.3bn) Mr Abe says the new stadium will still be completed in time for the games. However, the delay means that the stadium will no longer be ready in time for the 2019 Rugby World Cup, which Japan is also hosting. \"I have been listening to the voices of the people and the athletes for about a month now, thinking about the possibility of a review,\" Mr Abe said.")
     coll = Rankrb::Collection.new(:docs => [doc1, doc2, doc3], :query => 'Shinzo Abe said')
     
-    sorted = coll.bm25
-    first, second, third = sorted.shift, sorted.shift, sorted.shift
-    
-    expect(first.rank).to be_within(0.001).of(0.181)
-    expect(second.rank).to be_within(0.001).of(0.984)
-    expect(third.rank).to be_within(0.001).of(3.00)
+    coll.bm25
+    ranks = coll.docs.collect {|doc| doc.rank}.sort
+    expect(ranks[0]).to be_within(0.001).of(0.181)
+    expect(ranks[1]).to be_within(0.001).of(0.984)
+    expect(ranks[2]).to be_within(0.001).of(3.00)
   end
 end

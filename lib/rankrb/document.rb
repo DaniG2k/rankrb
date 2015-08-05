@@ -13,28 +13,44 @@ module Rankrb
     end
 
     def length
-      set_tokens.join(' ').length
+      if @tknz
+        @tknz.join(' ').length
+      else
+        set_tokens.join(' ').length
+      end
     end
 
     def include?(term)
-      set_tokens.include?(term_to_token(term))
+      if @tknz
+        @tknz.include?(term)
+      else
+        set_tokens.include?(term)
+      end
     end
 
     def term_freq(term)
-      set_tokens.count(term_to_token(term))
+      if @tknz
+        @tknz.count(term)
+      else
+        set_tokens.count(term)
+      end
     end
 
     def uniq
-      set_tokens.uniq
+      if @tknz
+        @tknz.uniq
+      else
+        set_tokens.uniq
+      end
     end
     
     private
     def set_tokens
       @tknz ||= Rankrb::Tokenizer.new(@body).tokenize
     end
-    
-    def term_to_token(term)
-      Rankrb::Tokenizer.new(term).tokenize.shift
-    end
+
+    #def term_to_token(term)
+    #  Rankrb::Tokenizer.new(term).tokenize.shift
+    #end
   end
 end
