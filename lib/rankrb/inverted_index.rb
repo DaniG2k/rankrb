@@ -9,9 +9,9 @@ module Rankrb
     end
 
     def build
-      # JSON file has the following format:
+      # The response has the following format:
       # {:term1=>
-      #   {:doc_freq => 993427,
+      #   {:doc_freq => 21,
       #    :ids => {
       #      :"1"=>6,
       #      :"2"=>5,
@@ -54,7 +54,7 @@ module Rankrb
 
     def find(str)
       tokens = Rankrb::Tokenizer.new(str).tokenize
-      #@collection.query = str
+      @collection.query = str
       #@collection.bm25
     end
 
