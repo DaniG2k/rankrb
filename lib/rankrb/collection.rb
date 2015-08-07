@@ -7,10 +7,10 @@ module Rankrb
       @query = params.fetch(:query, nil)
 
       def @docs.<<(arg)
-        self.push arg
+        self.push(arg)
       end
     end
-    
+
     def containing_term(term)
       @docs.count {|doc| doc.include?(term)}
     end
@@ -22,6 +22,5 @@ module Rankrb
     def total_docs
       @docs.size
     end
-
   end
 end
