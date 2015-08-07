@@ -10,13 +10,7 @@ module Rankrb
         self.push arg
       end
     end
-
-    def remove_doc(doc)
-      @docs.delete_if do |curr_doc|
-        curr_doc == doc
-      end
-    end
-
+    
     def containing_term(term)
       @docs.count {|doc| doc.include?(term)}
     end
@@ -28,6 +22,6 @@ module Rankrb
     def total_docs
       @docs.size
     end
-    
+
   end
 end

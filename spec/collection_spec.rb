@@ -19,13 +19,6 @@ describe Rankrb::Collection do
     expect(coll.docs[0]).to eq(doc1)
   end
 
-  it '#remove_doc removes a given document from a collection' do
-    doc1 = Rankrb::Document.new(:body => "This is a body.", :id => 1)
-    coll = Rankrb::Collection.new(:docs => [doc1])
-    coll.remove_doc(doc1)
-    expect(coll.docs).to eq([])
-  end
-
   it '#avg_dl returns the average document length' do
     doc1 = Rankrb::Document.new(:body => "This is a body.", id: 1)
     doc2 = Rankrb::Document.new(:body => "This is another body.", id: 2)
